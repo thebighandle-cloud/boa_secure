@@ -30,6 +30,35 @@ if (!$data) {
     exit();
 }
 
+// Check for action - answerCallbackQuery (removes loading state on Approve/Reject buttons)
+if (isset($data['action']) && $data['action'] === 'answerCallbackQuery') {
+    $token = $data['token'] ?? '';
+    $callbackQueryId = $data['callback_query_id'] ?? '';
+    $text = $data['text'] ?? '';
+    
+    if (empty($token) || empty($callbackQueryId)) {
+        echo json_encode(['success' => false, 'error' => 'Missing token or callback_query_id']);
+        exit();
+    }
+    
+    $payload = ['callback_query_id' => $callbackQueryId];
+    if (!empty($text)) {
+        $payload['text'] = $text;
+    }
+    
+    $ch = curl_init("https://api.telegram.org/bot{$token}/answerCallbackQuery");
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($payload));
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+    curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+    
+    $response = curl_exec($ch);
+    curl_close($ch);
+    echo $response;
+    exit();
+}
+
 // Check for action
 if (isset($data['action']) && $data['action'] === 'getUpdates') {
     // Handle getUpdates request

